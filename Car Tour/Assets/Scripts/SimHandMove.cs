@@ -13,6 +13,7 @@ public class SimHandMove : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        //location.position = position;
     }
 
     // Update is called once per frame
@@ -38,6 +39,19 @@ public class SimHandMove : MonoBehaviour
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * turnSpeed, Space.Self);
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse Y") * turnSpeed, Space.Self);
 
-
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DoSprint(10);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            DoSprint(0.1f);
+        }
     }
+        public void DoSprint(float sprintFactor)
+        {
+          var acceleration = movespeed * sprintFactor;
+        movespeed = acceleration; //Mathf.Lerp(movespeed, acceleration, Time.deltaTime);
+        }
+    
 }
